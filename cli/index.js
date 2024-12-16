@@ -1,5 +1,6 @@
 // cli/index.js
 import { program } from 'commander'
+import 'dotenv/config'
 import transactionController from './transaction.js'
 import billSplitterController from './billSplitter.js'
 import currencyConverter from './currencyConverter.js'

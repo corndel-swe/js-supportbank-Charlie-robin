@@ -5,10 +5,32 @@ const currencyConverter = new Command('currency')
 
 currencyConverter
   .command('convert <amount> <from> <to>')
-  .description('Splits Total Bill by Number of people')
-  .action((amount, from, to) => {
-    const exchangeRate = new ExchangeRates()
-    console.log(exchangeRate.calculate(from, to, amount))
+  .description(
+    'Converts a amount from one given currency to another given currency'
+  )
+  .action(async (amount, from, to) => {
+    try {
+      const validAmount = Number(amount)
+
+      if (Number.isNaN(validAmount)) {
+        throw new Error(`Invalid number: ${amount}`)
+      }
+
+      const [validFrom, validTo] = [from.toUpperCase(), to.toUpperCase()]
+
+      const exchangeRate = await ExchangeRates.get()
+
+      const rate = exchangeRate
+        .calculate(validFrom, validTo, validAmount)
+        .toFixed(2)
+
+      const message = `${validAmount} ${validFrom} is equivalent to ${rate} ${validTo}`
+
+      console.log(message)
+    } catch (error) {
+      console.log('Oh no something has gone wrong...')
+      console.error(error.message)
+    }
   })
 
 export default currencyConverter
