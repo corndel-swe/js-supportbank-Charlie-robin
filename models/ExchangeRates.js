@@ -30,25 +30,32 @@ class ExchangeRates {
     this.rates = rates
   }
 
-  validateCurrency(currencies) {
+  validateCurrencies(currencies) {
     const unsupported = currencies.filter(
       (currency) => !(currency in this.rates)
     )
 
     if (unsupported.length > 0) {
       throw new Error(
-        `Unsupported currencies: ${unsupported.join(', ')}.\n` +
+        `Provided Unsupported currencies: ${unsupported.join(', ')}.\n` +
           `Supported currencies: ${Object.keys(this.rates).join(', ')}`
       )
     }
   }
 
-  calculate(from, to, amount) {
-    this.validateCurrency([from, to])
+  getConversionRate(from, to, amount) {
+    this.validateCurrencies([from, to])
 
     const fromConversion = this.rates[from]
+
     const toConversion = this.rates[to]
-    return (amount / fromConversion) * toConversion
+
+    const conversion = (amount / fromConversion) * toConversion
+
+    return {
+      conversion: conversion.toFixed(2),
+      rate: (conversion / amount).toFixed(2),
+    }
   }
 }
 

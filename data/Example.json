@@ -1,0 +1,26 @@
+{
+    "name": "John Doe",
+    "age": 30,
+    "email": "johndoe@example.com",
+    "isMember": true,
+    "address": {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "postalCode": "12345"
+    },
+    "phoneNumbers": [
+      {
+        "type": "home",
+        "number": "555-555-5555"
+      },
+      {
+        "type": "work",
+        "number": "555-555-5556"
+      }
+    ],
+    "preferences": {
+      "newsletter": true,
+      "notifications": false
+    }
+  }
+  
